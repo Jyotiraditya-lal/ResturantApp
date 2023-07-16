@@ -30,12 +30,23 @@ const CartProvider=(props)=>{
             setItemState([...itemState,item])
         }
         
-        
-        console.log(itemState)
     }
 
 
-    const RemoveItemsHandler=(id)=>{}
+    const RemoveItemsHandler=(id)=>{
+        for(let i=0;i<itemState.length;i++){
+           if(itemState[i].id===id){
+            if(itemState[i].amount>1){
+                itemState[i].amount--
+                setItemState([...itemState])
+            }
+            else if(itemState[i].amount===1){
+                itemState.splice(i,1)
+                setItemState([...itemState])
+            }
+           }
+        }
+    }
     
     
     const cartContext={
