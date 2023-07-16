@@ -8,9 +8,15 @@ const Cart=(props)=>{
 
     const cartCtx=useContext(CartContext)
 
-    const RemoveFromCartHandler=(id)=>{}
+    const ShowOrderButton= cartCtx.items.length>0
 
-    const AddToCardHandler=(item)=>{}
+    const RemoveFromCartHandler=(id)=>{
+        cartCtx.removeItem(id)
+    }
+
+    const AddToCardHandler=(item)=>{
+        
+    }
 
     let totalAmount=0
     for(let i=0;i<cartCtx.items.length;i++){
@@ -24,8 +30,8 @@ const Cart=(props)=>{
                name={item.name} 
                price={item.price} 
                amount={item.amount}
-               onRemove={RemoveFromCartHandler}
-               onAdd={AddToCardHandler} 
+               onRemove={RemoveFromCartHandler.bind(null,item.id)}
+               onAdd={AddToCardHandler.bind(null,item)} 
             /> 
          )}</ul>
 
@@ -38,7 +44,7 @@ const Cart=(props)=>{
             </div>
             <div className={classes.actions}>
                 <button className={classes['button--alt']} onClick={props.onCancel}>Cancel</button>
-                <button className={classes.button}>Order</button>
+                {ShowOrderButton && <button className={classes.button}>Order</button>}
             </div>
         </Modal>
     )
